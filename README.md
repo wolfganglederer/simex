@@ -1,6 +1,6 @@
 # The simex Pakage
 
-This pakage for R implements the simex procedure developed by Cook & Stefanski for diealing with measurement error models, as well as the mcsimex for misclassified data developed by Küchenhoff and Lesaffre.
+This pakage for R implements the simex procedure developed by Cook & Stefanski for dealing with measurement error models, as well as the mcsimex for misclassified data developed by Küchenhoff, Mwalili and Lesaffre.
 
 # simex NEWS:
 
