@@ -40,7 +40,7 @@ Küchenhoff, H., Lederer, W. and E. Lesaffre. (2006) Asymptotic Variance Estimat
 
 Lederer, W. and Küchenhoff, H. (2006) A short introduction to the SIMEX and MCSIMEX. *R News*, **6(4)**, 26--31
 
-Cook, J.R. and Stefanski, L.A. (1994) Simulation-extrapolation estimation in parametric measurement error models. *Journal of American Statistical Association*, **89**, 1314 -- 1328
+Cook, J.R. and Stefanski, L.A. (1994) Simulation-extrapolation estimation in parametric measurement error models. *Journal of the American Statistical Association*, **89**, 1314 -- 1328
 
 Carroll, R.J., Küchenhoff, H., Lombard, F. and Stefanski L.A. (1996) Asymptotics for the SIMEX estimator in nonlinear measurement error models. *Journal of the American Statistical Association*, **91**, 242 -- 250
 
