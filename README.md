@@ -1,6 +1,9 @@
-# The simex Pakage
+# The simex Package
 
 This pakage for R implements the simex procedure developed by Cook & Stefanski for dealing with measurement error models, as well as the mcsimex for misclassified data developed by Küchenhoff, Mwalili and Lesaffre.
+
+It can be found on [CRAN] (https://cran.r-project.org/web/packages/simex/index.html)
+
 
 # simex NEWS:
 
