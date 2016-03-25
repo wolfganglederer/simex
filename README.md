@@ -18,7 +18,7 @@ Carrol, R.J., Ruppert, D., Stefanski, L.A. and Crainiceanu, C. (2006). *Measurem
 # simex NEWS:
 
 ## Version 1.7:
-(by Heidi Seibold & Wolfgang Lederer)
+(by Wolfgang Lederer)
 
 - Option fitting.method in function simex() now really works properly for "linear" (Wolfgang)
 - Smaller documentation fixes (Wolfgang)
