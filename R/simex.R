@@ -61,7 +61,7 @@
 #'
 #' @references
 #' Cook, J.R. and Stefanski, L.A. (1994) Simulation-extrapolation estimation in
-#' parametric measurement error models. \emph{Journal of American Statistical
+#' parametric measurement error models. \emph{Journal of the American Statistical
 #' Association}, \bold{89}, 1314 -- 1328
 #'
 #' Carroll, R.J., Küchenhoff, H., Lombard, F. and Stefanski L.A. (1996) Asymptotics
