@@ -1,6 +1,6 @@
 Package: simex
 Type: Package
-Version: 1.6
+Version: 1.7
 Date: 2016-03-25
 Depends:
     stats
@@ -13,7 +13,9 @@ Author: Wolfgang Lederer <Wolfgang.Lederer@gmail.com>, Heidi Seibold
 Maintainer: Wolfgang Lederer <Wolfgang.Lederer@gmail.com>
 Description: Implementation of the SIMEX-Algorithm by Cook & Stefanski and
     MCSIMEX by Küchenhoff, Mwalili & Lesaffre.
-License: GPL (>= 2)
+URL: https://github.com/wolfganglederer/simex
+BugReports: https://github.com/wolfganglederer/simex/issues
+License: GPL-3
 Encoding: latin1
 LazyLoad: yes
 ZipData: yes
