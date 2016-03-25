@@ -10,7 +10,7 @@ This pakage for R implements the simex procedure developed by Cook & Stefanski f
 
 * Option fitting.method in function simex() now really works properly for "linear" (Wolfgang)
 * Smaller documentation fixes (Wolfgang)
-* Upload to Github and moving documentation to roxygen2 (wolfgang)
+* Uploaded to Github and moved documentation to roxygen2 (Wolfgang)
 
 ## Version 1.5:
 (by Heidi Seibold & Wolfgang Lederer)
