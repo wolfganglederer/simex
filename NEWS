@@ -1,0 +1,53 @@
+simex NEWS:
+===========
+Version 1.7:
+------------
+(by Heidi Seibold & Wolfgang Lederer)
+
+* Option fitting.method in function simex() now really works properly for "linear" (Wolfgang)
+
+* Smaller documentation fixes (Wolfgang)
+
+* Upload to Github and moving documentation to roxygen2 (wolfgang)
+
+
+
+Version 1.5:
+------------
+(by Heidi Seibold & Wolfgang Lederer)
+
+* Option fitting.method in function simex() now works properly for "linear" (Wolfgang)
+
+* Measurement errors may now be heteroscedastic. Therefore the input-type had (Heidi)
+  to be changed. The measurement error now has to be a matrix.
+
+* The functions simex and print.summary.simex were adjusted. (Heidi)
+
+
+
+
+Version 1.4:
+------------
+(by Ph. Grosjean <phgrosjean@sciviews.org>)
+
+* Object classes were renamed 'simex' and 'mcsimex' to match their constructor's
+  names simex() and mcsimex().
+
+* Interface of mcsimex() has been homogenized with the one of simex(), with
+  fitting.method at the sixth place instead of last one.
+
+* print() methods now return x invisibly, as they are supposed to do.
+
+* predict() methods failed when newdata was not provided. Fixed.
+
+* refit() is now a generic function with methods for objects 'simex' and
+  'mcsimex'. Its arguments have been reworked to match arguments of simex()
+  and mcsimex() functions (jackknife becomes jackknife.estimation).
+
+* A NAMESPACE is added and functions that are not supposed to be used by the
+  end-user are now hidden in the namespace (construct.s(), fit.log() and
+  fit.nls()).
+
+* Documentation has been rewritten to match current R standards. Methods are now
+  documented in the same page as the object creator. 'Overview' is rewritten and
+  renamed 'simex-package'.
