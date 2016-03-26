@@ -13,7 +13,7 @@ install.packages("simex")
 The most current version can be installed via 
 
 ```R
-devtools: devtools::install_github("wolfganglederer/simex")
+devtools::install_github("wolfganglederer/simex")
 ```
 
 # simex NEWS:
