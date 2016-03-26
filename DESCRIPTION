@@ -16,7 +16,7 @@ Description: Implementation of the SIMEX-Algorithm by Cook & Stefanski and
 URL: https://github.com/wolfganglederer/simex
 BugReports: https://github.com/wolfganglederer/simex/issues
 License: GPL-3
-Encoding: latin1
+Encoding: UTF-8
 LazyLoad: yes
 ZipData: yes
 Packaged: Fri MAR 25 18:00:00 2016; wolfgang
