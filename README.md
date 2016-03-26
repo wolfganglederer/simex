@@ -2,7 +2,7 @@
 
 This pakage for R implements the simex procedure developed by Cook & Stefanski for dealing with measurement error models, as well as the mcsimex for misclassified data developed by Küchenhoff, Mwalili and Lesaffre.
 
-It can be found on [CRAN] (https://cran.r-project.org/web/packages/simex/index.html)
+It can be found on [CRAN] (https://cran.r-project.org/web/packages/simex/index.html), or the most current version can be installed via devtools: devtools::install_github("wolfganglederer/simex")
 
 
 # simex NEWS:
