@@ -198,7 +198,7 @@ simex <-
               call. = FALSE)
       lambda <- lambda[lambda >= 0]
     }
-    if (!any(names(model) == "x") && asymptotic)
+    if (!any(names(model) == "x") && asymptotic && class(model)[1] != "polr")
       stop("The option x must be enabled in the naive model for asymptotic variance estimation",
            call. = FALSE)
     #**Heidi**#
@@ -225,8 +225,13 @@ simex <-
     cl <- match.call()
     # defining the vector for the solutions of the simulations
     ncoef <- length(model$coefficients)
+    if (class(model)[1] == "polr")
+      ncoef <- ncoef + length(model$zeta)
     ndes <- dim(model$model)[1]
-    p.names <- names(coef(model))
+    if (class(model)[1] == "polr")
+      p.names <- c(names(coef(model)), names(model$zeta))
+    else
+      p.names <- names(coef(model))
     nlambda <- length(lambda)
     estimates <- matrix(data = NA, nlambda + 1, ncoef) # +1 because "0" will be added
     theta <- matrix(data = NA, B, ncoef)
@@ -254,7 +259,10 @@ simex <-
       a <- list()
     }
     # assigning the naive estimator
-    estimates[1, ] <- model$coefficients
+    if (class(model)[1] == "polr")
+      estimates[1, ] <- c(model$coefficients, model$zeta)
+    else
+      estimates[1, ] <- model$coefficients
     # The Simulation step
     # outer loop doing the simulations for each lambda
     for (i in 1:length(lambda)) {
@@ -277,7 +285,10 @@ simex <-
           ( sqrt(lambda[i]) *  epsilon * measurement.error  )
         # updating the model and calculating the estimate
         model.SIMEX <- update(model, data = data.frame(SIMEXdata))
-        theta[j, ] <- model.SIMEX$coefficients
+        if (class(model)[1] == "polr")
+          theta[j, ] <- c(model.SIMEX$coefficients, model.SIMEX$zeta)
+        else
+          theta[j, ] <- model.SIMEX$coefficients
         if (jackknife.estimation != FALSE) {
           variance.est <- variance.est + extract.covmat(model.SIMEX)
         }
@@ -381,9 +392,13 @@ simex <-
       data.frame(theta[, seq(i, ncoef * nlambda, by = ncoef)])
     z <- cbind(lambda, estimates)
     z <- rbind(c(-1, SIMEX.estimate), z) # returning the estimated values
-    colnames(z) <- c("lambda", names(coef(model)))
+    colnames(z) <- c("lambda", p.names)
+    if(class(model)[1] == "polr")
+      coefs <- z[1, -1][1:length(coef(model))]
+    else
+      coefs <- z[1, -1]
     erg <- list(
-      coefficients = z[1, -1], # SIMEX corrected coefficients
+      coefficients = coefs, # SIMEX corrected coefficients
       SIMEX.estimates = z, # all thetas as a matrix
       lambda = lambda, # vector for the values for lambda
       model = model, # the naive model
@@ -396,8 +411,13 @@ simex <-
       call = cl
     )
     class(erg) <- ("simex")
+    if (class(model)[1] == "polr")
+      erg$zeta <- z[1,-1][(length(coef(model))+1):length(z[1,-1])]
+    type <- 'response'
+    if (class(model)[1] == "polr")
+      type <- 'probs'
     fitted.values <- predict(erg, newdata = model$model[, -1, drop = FALSE],
-                             type = "response")
+                             type = type)
     erg$fitted.values <- fitted.values
     if (is.factor(model$model[, 1])) {
       erg$residuals <-
@@ -459,6 +479,10 @@ plot.simex <- function(x, xlab = expression((1 + lambda)), ylab = colnames(b[,
 predict.simex <- function(object, newdata, ...) {
   new.object <- object$model
   new.object$coefficients <- object$coefficients
+  if (class(new.object)[1] == "polr") {
+    new.object$zeta <- object$zeta
+    new.object$fitted.values <- object$fitted.values
+  }
   if (missing(newdata)) {
     predict(new.object, ...)
   } else {
@@ -479,6 +503,11 @@ print.simex <- function(x, digits = max(3, getOption("digits") - 3), ...) {
     print.default(format(coef(x), digits = digits), print.gap = 2,
                   quote = FALSE)
   } else cat("No coefficients\n")
+  if (length(x$zeta)) {
+    cat("Intercepts:\n")
+    print.default(format(x$zeta, digits = digits), print.gap = 2,
+                  quote = FALSE)
+  }
   cat("\n")
   return(invisible(x))
 }
@@ -532,8 +561,11 @@ refit.simex <- function(object, fitting.method = "quadratic", jackknife.estimati
 #' @describeIn simex Summary of simulation and extrapolation
 #' @export
 summary.simex <- function(object, ...) {
-  p.names <- names(coef(object))
-  est <- coef(object)
+  if (class(object$model)[1] == "polr")
+    est <- c(coef(object), object$zeta)
+  else
+    est <- coef(object)
+  p.names <- names(est)
   est.table <- list()
   n <- length(resid(object))
   p <- length(p.names)
