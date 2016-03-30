@@ -200,6 +200,21 @@ ybin <- as.numeric(u < g)
 summary(logit_simex)
 print(logit_simex)
 plot(logit_simex)
+
+### polr: two variables, one with homoscedastic, one with heteroscedastic measurement error
+
+if(require("MASS")) {# Requires MASS
+yfactor <- cut(u, 3, ordered_result=TRUE)
+
+(polr_real <- polr(yfactor ~ x_real + x_real2))
+(polr_naiv <- polr(ybin ~ x_measured + x_het2, Hess = TRUE))
+(polr_simex <- simex(polr_naiv, SIMEXvariable = c("x_measured", "x_het2"),
+                    measurement.error = cbind(sd_me, sd_me_het2), asymptotic = FALSE))
+
+summary(polr_simex)
+print(polr_simex)
+plot(logit_simex)
+}
 }
 
 }
