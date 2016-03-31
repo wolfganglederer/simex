@@ -213,7 +213,7 @@ yfactor <- cut(u, 3, ordered_result=TRUE)
 
 summary(polr_simex)
 print(polr_simex)
-plot(logit_simex)
+plot(polr_simex)
 }
 }
 
