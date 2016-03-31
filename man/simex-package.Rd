@@ -28,6 +28,7 @@
   Functions \code{simex()} and \code{mcsimex()} can be used on models issued
   from \code{lm()}, \code{glm()} with asymtotic estimation.
   Models from \code{nls()}, \code{gam()} (package \pkg{mgcv}),
+  \code{polr()} (package \pkg{MASS}),
   \code{lme()} and \code{nlme()} (package \pkg{nlme}) can also be corrected with
   these algorithms, but without asymptotic estimations.
 }
