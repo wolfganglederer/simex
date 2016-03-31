@@ -204,7 +204,8 @@ plot(logit_simex)
 ### polr: two variables, one with homoscedastic, one with heteroscedastic measurement error
 
 if(require("MASS")) {# Requires MASS
-yfactor <- cut(u, 3, ordered_result=TRUE)
+yerr <- jitter(y, amount=1)
+yfactor <- cut(yerr, 3, ordered_result=TRUE)
 
 (polr_real <- polr(yfactor ~ x_real + x_real2))
 (polr_naiv <- polr(yfactor ~ x_measured + x_het2, Hess = TRUE))
