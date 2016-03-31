@@ -49,7 +49,7 @@ Lederer, W. and Küchenhoof, H. (2006) A short introduction to the SIMEX and
 
   and for functions generating the initial naive models:
   \code{\link[stats]{lm}}, \code{\link[stats]{glm}}, \code{nls},
-  \code{gam}, \code{lme}, \code{nlme}
+  \code{gam}, \code{lme}, \code{nlme}, \code{polr}
 }
 
 \examples{
