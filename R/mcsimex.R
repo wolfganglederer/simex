@@ -156,7 +156,9 @@ mcsimex <- function(model,
             call. = FALSE)
     lambda <- lambda[lambda >= 0]
   }
-  if (!any(names(model) == "x") && asymptotic)
+  if (class(model)[1] == "polr" && !any(names(model)) == "Hessian")
+    stop("The option Hessian must be enabled in the naive model", call. = FALSE)
+  if (!any(names(model) == "x") && asymptotic && class(model)[1] != "polr")
     stop("The option x must be enabled in the naive model for asymptotic variance estimation",
          call. = FALSE)
   if (is.matrix(mc.matrix)) {
@@ -173,9 +175,14 @@ mcsimex <- function(model,
     stop("SIMEXvariable must be a factor")
   cl <- match.call()
   ncoef <- length(model$coefficients)
+  if (class(model)[1] == "polr")
+    ncoef <- ncoef + length(model$zeta)
   ndes <- length(model$y)
   nlambda <- length(lambda)
-  p.names <- names(coef(model))
+  if (class(model)[1] == "polr")
+    p.names <- c(names(coef(model)), names(model$zeta))
+  else
+    p.names <- names(coef(model))
   factors <- lapply(SIMEXvariable, levels)
   estimates <- matrix(data = NA, length(lambda) + 1, length(model$coefficients))
   theta <- matrix(data = NA, B, ncoef)
@@ -198,7 +205,10 @@ mcsimex <- function(model,
     ab <- matrix(colSums(a.mat), nrow = NROW(a[[1]]), byrow = FALSE)
     am[[1]] <- -ab/ndes
   }
-  estimates[1, ] <- model$coefficients
+  if (class(model)[1] == "polr")
+    estimates[1, ] <- c(model$coefficients, model$zeta)
+  else
+    estimates[1, ] <- model$coefficients
   for (i in 1:length(lambda)) {
     if (jackknife.estimation != FALSE)
       variance.est <- matrix(0, ncol = ncoef, nrow = ncoef)
@@ -219,7 +229,10 @@ mcsimex <- function(model,
       }
       # updating the model and calculating the estimates
       model.SIMEX <- update(model, data = data.frame(SIMEXdata))
-      theta[j, ] <- model.SIMEX$coefficients
+      if (class(model)[1] == "polr")
+        theta[j, ] <- c(model.SIMEX$coefficients, model.SIMEX$zeta)
+      else
+        theta[j, ] <- model.SIMEX$coefficients
       if (jackknife.estimation != FALSE) {
         variance.est <- variance.est + extract.covmat(model.SIMEX)
       }
@@ -307,14 +320,23 @@ mcsimex <- function(model,
   for (i in 1:ncoef) theta.all[[p.names[i]]] <- data.frame(theta[, seq(i, ncoef * nlambda, by = ncoef)])
   z <- cbind(lambda, estimates)
   z <- rbind(c(-1, SIMEX.estimate), z)  # returning the estimated values
-  colnames(z) <- c("lambda", names(model$coefficients))
-  erg <- list(coefficients = z[1, -1], SIMEX.estimates = z, lambda = lambda,
+  colnames(z) <- c("lambda", p.names)
+  if(class(model)[1] == "polr")
+    coefs <- z[1, -1][1:length(coef(model))]
+  else
+    coefs <- z[1, -1]
+  erg <- list(coefficients = coefs, SIMEX.estimates = z, lambda = lambda,
               model = model, mc.matrix = mc.matrix, B = B, extrapolation = extrapolation,
               fitting.method = fitting.method, SIMEXvariable = SIMEXvariable,
               call = cl, theta = theta.all)
   class(erg) <- ("mcsimex")
+  if (class(model)[1] == "polr")
+    erg$zeta <- z[1,-1][(length(coef(model))+1):length(z[1,-1])]
+  type <- 'response'
+  if (class(model)[1] == "polr")
+    type <- 'probs'
   fitted.values <- predict(erg, newdata = model$model[, -1, drop = FALSE],
-                           type = "response")
+                           type = type)
   erg$fitted.values <- fitted.values
   if (is.factor(model$model[, 1]))
     erg$residuals <- as.numeric(levels(model$model[, 1]))[model$model[, 1]] - fitted.values
@@ -381,6 +403,10 @@ plot.mcsimex <- function(x,
 predict.mcsimex <- function(object, newdata, ...) {
   new.object <- object$model
   new.object$coefficients <- object$coefficients
+  if (class(new.object)[1] == "polr") {
+    new.object$zeta <- object$zeta
+    new.object$fitted.values <- object$fitted.values
+  }
   if (missing(newdata)) {
     predict(new.object, ...)
   } else {
@@ -401,6 +427,11 @@ print.mcsimex <- function(x, digits = max(3, getOption("digits") - 3),
     print.default(format(coef(x), digits = digits), print.gap = 2,
                   quote = FALSE)
   } else cat("No coefficients\n")
+  if (length(x$zeta)) {
+    cat("Intercepts:\n")
+    print.default(format(x$zeta, digits = digits), print.gap = 2,
+                  quote = FALSE)
+  }
   cat("\n")
   return(invisible(x))
 }
@@ -435,8 +466,11 @@ print.summary.mcsimex <- function(x, digits = max(3, getOption("digits") -
 #' @describeIn mcsimex Summary for mcsimex
 #' @export
 summary.mcsimex <- function(object, ...) {
-  p.names <- names(coef(object))
-  est <- coef(object)
+  if (class(object$model)[1] == "polr")
+    est <- c(coef(object), object$zeta)
+  else
+    est <- coef(object)
+  p.names <- names(est)
   est.table <- list()
   n <- length(resid(object))
   p <- length(p.names)
