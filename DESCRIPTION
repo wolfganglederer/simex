@@ -6,7 +6,8 @@ Depends:
     stats
 Suggests:
     mgcv,
-    nlme
+    nlme,
+    MASS
 Title: SIMEX- And MCSIMEX-Algorithm for Measurement Error Models
 Author: Wolfgang Lederer <Wolfgang.Lederer@gmail.com>, Heidi Seibold
     <heidi.bold@gmail.com>, Helmut Küchenhoff <Kuechenhoff@stat.uni-muenchen.de>
