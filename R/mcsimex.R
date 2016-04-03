@@ -156,7 +156,7 @@ mcsimex <- function(model,
             call. = FALSE)
     lambda <- lambda[lambda >= 0]
   }
-  if (class(model)[1] == "polr" && !any(names(model)) == "Hessian")
+  if (class(model)[1] == "polr" && !any(names(model) == "Hessian"))
     stop("The option Hessian must be enabled in the naive model", call. = FALSE)
   if (!any(names(model) == "x") && asymptotic && class(model)[1] != "polr")
     stop("The option x must be enabled in the naive model for asymptotic variance estimation",
