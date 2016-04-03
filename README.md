@@ -24,6 +24,7 @@ devtools::install_github("wolfganglederer/simex")
 - Option fitting.method in function simex() now really works properly for "linear" (Wolfgang)
 - Smaller documentation fixes (Wolfgang)
 - Uploaded to Github and moved documentation to roxygen2 (Wolfgang)
+- Added support for proportional odds logistic regression (```polr``` from library MASS) (Chris Lawrence)
 
 ## Version 1.5:
 (by Heidi Seibold & Wolfgang Lederer)
