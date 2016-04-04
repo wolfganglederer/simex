@@ -463,8 +463,10 @@ print.summary.mcsimex <- function(x, digits = max(3, getOption("digits") -
   if (is.character(x$mc.matrix))
     print(x$mc.matrix) else lapply(x$mc.matrix, print)
   cat("\nNumber of iterations: ", x$B, "\n")
-  cat("\nResiduals: \n")
-  print(summary(x$residuals), digits)
+  if (!is.null(x$residuals)) {
+    cat("\nResiduals: \n")
+    print(summary(x$residuals), digits)
+  }
   cat("\nCoefficients: \n")
   if (any(names(x$coefficients) == "asymptotic")) {
     cat("\nAsymptotic variance: \n")
