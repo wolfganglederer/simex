@@ -589,7 +589,10 @@ summary.simex <- function(object, ...) {
     est <- coef(object)
   p.names <- names(est)
   est.table <- list()
-  n <- length(resid(object))
+  if(is.null(resid(object))
+    n <- object$model$n
+  else
+    n <- length(resid(object))
   p <- length(p.names)
   rdf <- n - p
   if (any(names(object) == "variance.jackknife")) {
