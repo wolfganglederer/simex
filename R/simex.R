@@ -438,7 +438,7 @@ simex <-
                              type = type)
     erg$fitted.values <- fitted.values
     if (class(model)[1] == "polr") {
-      erg$residuals <- NA
+      erg$residuals <- NULL
     } else if (is.factor(model$model[, 1])) {
       erg$residuals <-
         as.numeric(levels(model$model[, 1]))[model$model[, 1]] - fitted.values
