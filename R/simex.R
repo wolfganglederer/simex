@@ -589,7 +589,7 @@ summary.simex <- function(object, ...) {
     est <- coef(object)
   p.names <- names(est)
   est.table <- list()
-  if(is.null(resid(object))
+  if (is.null(resid(object)))
     n <- object$model$n
   else
     n <- length(resid(object))
