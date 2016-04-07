@@ -437,7 +437,9 @@ simex <-
     fitted.values <- predict(erg, newdata = model$model[, -1, drop = FALSE],
                              type = type)
     erg$fitted.values <- fitted.values
-    if (is.factor(model$model[, 1])) {
+    if (class(model)[1] == "polr") {
+      erg$residuals <- NULL
+    } else if (is.factor(model$model[, 1])) {
       erg$residuals <-
         as.numeric(levels(model$model[, 1]))[model$model[, 1]] - fitted.values
     } else {
@@ -553,8 +555,10 @@ print.summary.simex <- function(x, digits = max(3, getOption("digits") -
     print(var.error)
   }
   cat("\n\nNumber of iterations: ", x$B, "\n")
-  cat("\nResiduals: \n")
-  print(summary(x$residuals), digits)
+  if (!is.null(x$residuals)) {
+    cat("\nResiduals: \n")
+    print(summary(x$residuals), digits)
+  }
   cat("\nCoefficients: \n")
   if (any(names(x$coefficients) == "asymptotic")) {
     cat("\nAsymptotic variance: \n")
@@ -585,7 +589,10 @@ summary.simex <- function(object, ...) {
     est <- coef(object)
   p.names <- names(est)
   est.table <- list()
-  n <- length(resid(object))
+  if (is.null(resid(object)))
+    n <- object$model$n
+  else
+    n <- length(resid(object))
   p <- length(p.names)
   rdf <- n - p
   if (any(names(object) == "variance.jackknife")) {

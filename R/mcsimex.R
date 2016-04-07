@@ -103,6 +103,16 @@
 #' plot(simex.model2)
 #' par(op)
 #'
+#' # example using polr from the MASS package
+#' if(require(MASS)) {
+#'   yord <- cut((1 / (1 + exp(-1 * (-2 + 1.5 * x -0.5 * z)))), 3, ordered=TRUE)
+#'   Pi3 <- matrix(data = c(0.8, 0.1, 0.1, 0.2, 0.7, 0.1, 0.1, 0.2, 0.7), nrow = 3, byrow = FALSE)
+#'   dimnames(Pi3) <- list(levels(yord), levels(yord))
+#'   ystarord <- misclass(data.frame(yord), list(yord = Pi3), k = 1)[, 1]
+#'   naive.ord.model <- polr(ystarord ~ x + z, Hess = TRUE)
+#'   simex.ord.model <- mcsimex(naive.ord.model, mc.matrix = Pi3, SIMEXvariable = "ystarord", asymptotic=FALSE)
+#' }
+#'
 #' # example for a function which can be supplied to the function mcsimex()
 #' # "ystar" is the variable which is to be misclassified
 #' # using the example above
@@ -158,6 +168,8 @@ mcsimex <- function(model,
   }
   if (class(model)[1] == "polr" && !any(names(model) == "Hessian"))
     stop("The option Hessian must be enabled in the naive model", call. = FALSE)
+  if (class(model)[1] == "polr" && asymptotic)
+    stop("Asymptotic estimation is not supported for polr models", call. = FALSE)
   if (!any(names(model) == "x") && asymptotic && class(model)[1] != "polr")
     stop("The option x must be enabled in the naive model for asymptotic variance estimation",
          call. = FALSE)
@@ -184,7 +196,7 @@ mcsimex <- function(model,
   else
     p.names <- names(coef(model))
   factors <- lapply(SIMEXvariable, levels)
-  estimates <- matrix(data = NA, length(lambda) + 1, length(model$coefficients))
+  estimates <- matrix(data = NA, length(lambda) + 1, ncoef)
   theta <- matrix(data = NA, B, ncoef)
   colnames(theta) <- p.names
   theta.all <- vector(mode = "list", nlambda)
@@ -338,7 +350,9 @@ mcsimex <- function(model,
   fitted.values <- predict(erg, newdata = model$model[, -1, drop = FALSE],
                            type = type)
   erg$fitted.values <- fitted.values
-  if (is.factor(model$model[, 1]))
+  if (class(model)[1] == "polr")
+    erg$residuals <- NULL
+  else if (is.factor(model$model[, 1]))
     erg$residuals <- as.numeric(levels(model$model[, 1]))[model$model[, 1]] - fitted.values
   else erg$residuals <- model$model[, 1] - fitted.values
 
@@ -449,8 +463,10 @@ print.summary.mcsimex <- function(x, digits = max(3, getOption("digits") -
   if (is.character(x$mc.matrix))
     print(x$mc.matrix) else lapply(x$mc.matrix, print)
   cat("\nNumber of iterations: ", x$B, "\n")
-  cat("\nResiduals: \n")
-  print(summary(x$residuals), digits)
+  if (!is.null(x$residuals)) {
+    cat("\nResiduals: \n")
+    print(summary(x$residuals), digits)
+  }
   cat("\nCoefficients: \n")
   if (any(names(x$coefficients) == "asymptotic")) {
     cat("\nAsymptotic variance: \n")
@@ -472,7 +488,10 @@ summary.mcsimex <- function(object, ...) {
     est <- coef(object)
   p.names <- names(est)
   est.table <- list()
-  n <- length(resid(object))
+  if (is.null(resid(object)))
+    n <- object$model$n
+  else
+    n <- length(resid(object))
   p <- length(p.names)
   rdf <- n - p
   if (any(names(object) == "variance.jackknife")) {
