@@ -10,11 +10,12 @@
 #' @aliases build.mc.matrix check.mc.matrix
 #'
 #' @param mc.matrix an empirical misclassification matrix
-#' @param method method used to estimate the generator for the misclassification matrix (see Details)
+#' @param method method used to estimate the generator for the misclassification matrix. One of "series", "log" or "jlt" (see Details)
 #' @param tuning security parameter for numerical reasons
 #' @param diag.cor should corrections be substracted from the diagonal or from all values corresponding to the size?
 #' @param tol tolerance level for series method for convegence
-#' @param max.iter maximal number of iterations for the serie method to converge
+#' @param max.iter maximal number of iterations for the series method to converge.
+#' Ignored if method is not "series"
 #'
 #' @return \code{build.mc.matrix()} returns a misclassification matrix that is the closest estimate for a working misclassification matrix.
 #' @return \code{check.mc.matrix()} returns a vector of logicals.
