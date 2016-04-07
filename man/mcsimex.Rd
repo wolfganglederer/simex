@@ -150,13 +150,17 @@ simex.model2 <- refit(simex.model, "line")
 plot(simex.model2)
 par(op)
 
+# example using polr from the MASS package
+\dontrun{
 if(require(MASS)) {
   yord <- cut((1 / (1 + exp(-1 * (-2 + 1.5 * x -0.5 * z)))), 3, ordered=TRUE)
   Pi3 <- matrix(data = c(0.8, 0.1, 0.1, 0.2, 0.7, 0.1, 0.1, 0.2, 0.7), nrow = 3, byrow = FALSE)
   dimnames(Pi3) <- list(levels(yord), levels(yord))
   ystarord <- misclass(data.frame(yord), list(yord = Pi3), k = 1)[, 1]
   naive.ord.model <- polr(ystarord ~ x + z, Hess = TRUE)
-  simex.ord.model <- mcsimex(naive.ord.model, mc.matrix = Pi3, SIMEXvariable = "ystarord", asymptotic=FALSE)
+  simex.ord.model <- mcsimex(naive.ord.model, mc.matrix = Pi3,
+      SIMEXvariable = "ystarord", asymptotic=FALSE)
+}
 }
 
 # example for a function which can be supplied to the function mcsimex()

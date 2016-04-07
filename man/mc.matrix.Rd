@@ -13,7 +13,7 @@ build.mc.matrix(mc.matrix, method = "series",
 \arguments{
 \item{mc.matrix}{an empirical misclassification matrix}
 
-\item{method}{method used to estimate the generator for the misclassification matrix (see Details)}
+\item{method}{method used to estimate the generator for the misclassification matrix. One of "series", "log" or "jlt" (see Details)}
 
 \item{tuning}{security parameter for numerical reasons}
 
@@ -21,7 +21,8 @@ build.mc.matrix(mc.matrix, method = "series",
 
 \item{tol}{tolerance level for series method for convegence}
 
-\item{max.iter}{maximal number of iterations for the serie method to converge}
+\item{max.iter}{maximal number of iterations for the series method to converge.
+Ignored if method is not "series"}
 }
 \value{
 \code{build.mc.matrix()} returns a misclassification matrix that is the closest estimate for a working misclassification matrix.
