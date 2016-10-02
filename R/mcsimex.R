@@ -415,7 +415,7 @@ plot.mcsimex <- function(x,
   }
 }
 
-#' @describeIn mcsimex predict with mcsimex correction
+#' @describeIn mcsimex Predict with mcsimex correction
 #' @export
 predict.mcsimex <- function(object, newdata, ...) {
   new.object <- object$model

@@ -494,7 +494,7 @@ plot.simex <- function(x, xlab = expression((1 + lambda)), ylab = colnames(b[,
   }
 }
 
-#' @describeIn simex Predit using simex correction
+#' @describeIn simex Predict using simex correction
 #' @export
 predict.simex <- function(object, newdata, ...) {
   new.object <- object$model
