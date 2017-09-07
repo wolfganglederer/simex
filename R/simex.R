@@ -182,6 +182,9 @@
 #'
 #' @keywords models
 #'
+#' @importFrom stats coef cov lm nls predict printCoefmat pt resid residuals rnorm update vcov
+#' @importFrom graphics lines par plot points
+#'
 #' @export
 
 simex <-

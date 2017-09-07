@@ -29,10 +29,9 @@ diag.block(d)
 diag.block(a, 3)
 
 }
-\author{
-Wolfgang Lederer, \email{wolfgang.lederer@gmail.com}
-}
 \seealso{
 \code{\link[base]{diag}}, \code{\link[base]{kronecker}}
 }
-
+\author{
+Wolfgang Lederer, \email{wolfgang.lederer@gmail.com}
+}

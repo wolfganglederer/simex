@@ -4,10 +4,11 @@ extract.covmat <- function(model) {
   sum.model <- summary(model)
   switch(type , glm = covmat <- sum.model$cov.scaled
               , lm  = covmat <- sum.model$cov.unscaled * sum.model$sigma^2
-              , gam = covmat <- model$Vp, nls = covmat <- sum.model$cov.unscaled * sum.model$sigma^2
-              , polr= covmat <- vcov(model),
-              , lme = covmat <- model$apVar,
-                nlme = covmat <- model$apVar)
+              , gam = covmat <- model$Vp
+              , nls = covmat <- sum.model$cov.unscaled * sum.model$sigma^2
+              , polr= covmat <- stats::vcov(model)
+              , lme = covmat <- model$apVar
+              , nlme = covmat <- model$apVar)
   return(covmat)
 }
 
@@ -16,12 +17,12 @@ fit.logl <- function(lambda, p.names, estimates) {
   est <- (t(t(estimates) + (abs(apply(estimates, 2, min)) + 1) * (apply(estimates,
                                                                         2, min) <= 0)))
   # calculating starting values
-  start.mod <- lm(I(log(t(t(estimates) + (abs(apply(estimates, 2, min)) + 1) * (apply(estimates, 2, min) <= 0)))) ~ lambda)
-  start.val <- coef(start.mod)
+  start.mod <- stats::lm(I(log(t(t(estimates) + (abs(apply(estimates, 2, min)) + 1) * (apply(estimates, 2, min) <= 0)))) ~ lambda)
+  start.val <- stats::coef(start.mod)
   extrapolation <- list()
   # doing the extrapolation step
   for (d in p.names) {
-    extrapolation[[d]] <- try(nls(est[, d] ~ exp(gamma.0 + (gamma.1 * lambda)), start = list(gamma.0 = start.val[1, d], gamma.1 = start.val[2, d])), silent = TRUE)
+    extrapolation[[d]] <- try(stats::nls(est[, d] ~ exp(gamma.0 + (gamma.1 * lambda)), start = list(gamma.0 = start.val[1, d], gamma.1 = start.val[2, d])), silent = TRUE)
   }
   # security, in the case that nls() does not converge the 'logl'-method
   # is used
@@ -41,9 +42,9 @@ fit.nls <- function (lambda, p.names, estimates){
   for (d in p.names) {
     # calculating starting values
     # quadratic interpolation
-    extrapolation.quad <- lm(estimates[, d] ~ lambda + I(lambda^2))
+    extrapolation.quad <- stats::lm(estimates[, d] ~ lambda + I(lambda^2))
     # interpolation for the values of lambdastar
-    a.nls <- predict(extrapolation.quad,
+    a.nls <- stats::predict(extrapolation.quad,
                      newdata = data.frame(lambda = lambdastar))
     # analytic 3-point fit => good starting values
     gamma.est.3 <- ((a.nls[2] - a.nls[3]) * lambdastar[3] *
@@ -56,7 +57,7 @@ fit.nls <- function (lambda, p.names, estimates){
     gamma.est.1 <- a.nls[1] - (gamma.est.2 / (gamma.est.3 + lambdastar[1]))
     # fitting the nls-model for the various coefficients
     extrapolation[[d]] <-
-      nls(estimates[, d] ~ gamma.1 + gamma.2 / (gamma.3 + lambda),
+      stats::nls(estimates[, d] ~ gamma.1 + gamma.2 / (gamma.3 + lambda),
           start = list(gamma.1 = gamma.est.1, gamma.2 = gamma.est.2,
                        gamma.3 = gamma.est.3))
   }

@@ -2,12 +2,18 @@
 % Please edit documentation in R/mcsimex.R
 \name{mcsimex}
 \alias{mcsimex}
+\alias{print.mcsimex}
+\alias{summary.mcsimex}
+\alias{print.summary.mcsimex}
+\alias{plot.mcsimex}
+\alias{predict.mcsimex}
+\alias{refit.mcsimex}
 \alias{plot.mcsimex}
 \alias{predict.mcsimex}
 \alias{print.mcsimex}
 \alias{print.summary.mcsimex}
-\alias{refit.mcsimex}
 \alias{summary.mcsimex}
+\alias{refit.mcsimex}
 \title{Misclassification in models using MCSIMEX}
 \usage{
 mcsimex(model, SIMEXvariable, mc.matrix, lambda = c(0.5, 1, 1.5, 2),
@@ -64,14 +70,14 @@ be done, the option \code{x = TRUE} must be enabled in the naive model}
 
 \item{show}{vector of logicals indicating for which variables a plot should be produced}
 
+\item{\dots}{arguments passed to other functions}
+
 \item{object}{object of class 'mcsimex'}
 
 \item{newdata}{optionally, a data frame in which to look for variables with
 which to predict. If omitted, the fitted linear predictors are used}
 
 \item{digits}{number of digits to be printed}
-
-\item{\dots}{arguments passed to other functions}
 }
 \value{
 An object of class 'mcsimex' which contains:
@@ -121,7 +127,7 @@ If \code{nls} does not converge, the model with the starting values is returned.
 \itemize{
 \item \code{plot}: Plots of the simulation and extrapolation
 
-\item \code{predict}: predict with mcsimex correction
+\item \code{predict}: Predict with mcsimex correction
 
 \item \code{print}: Nice printing
 
@@ -131,6 +137,7 @@ If \code{nls} does not converge, the model with the starting values is returned.
 
 \item \code{refit}: Refits the model with a different extrapolation function
 }}
+
 \examples{
 x <- rnorm(200, 0, 1.142)
 z <- rnorm(200, 0, 2)
@@ -187,9 +194,6 @@ simex.model.differential <- mcsimex(naive.model, mc.matrix = "my.misclass", SIME
 }
 
 }
-\author{
-Wolfgang Lederer, \email{wolfgang.lederer@gmail.com}
-}
 \references{
 Küchenhoff, H., Mwalili, S. M.  and Lesaffre, E. (2006) A general method for
 dealing with misclassification in regression: The Misclassification SIMEX.
@@ -204,5 +208,7 @@ Lederer, W. and Küchenhoff, H. (2006) A short introduction to the SIMEX and MCS
 \seealso{
 \code{\link[simex]{misclass}}, \code{\link[simex]{simex}}
 }
+\author{
+Wolfgang Lederer, \email{wolfgang.lederer@gmail.com}
+}
 \keyword{models}
-

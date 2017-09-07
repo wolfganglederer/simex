@@ -2,8 +2,9 @@ Package: simex
 Type: Package
 Version: 1.7
 Date: 2016-03-25
-Depends:
-    stats
+Imports:
+    stats,
+    graphics
 Suggests:
     mgcv,
     nlme,
@@ -21,4 +22,4 @@ Encoding: UTF-8
 LazyLoad: yes
 ZipData: yes
 Packaged: Fri MAR 25 18:00:00 2016; wolfgang
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

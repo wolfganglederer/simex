@@ -1,14 +1,14 @@
 simex NEWS:
 ===========
+
 Version 1.7:
 ------------
 (by Heidi Seibold & Wolfgang Lederer)
 
 * Option fitting.method in function simex() now really works properly for "linear" (Wolfgang)
-
-* Smaller documentation fixes (Wolfgang)
-
-* Upload to Github and moving documentation to roxygen2 (wolfgang)
+* Smaller documentation fixes (Wolfgang & Heidi)
+* Upload to Github and moving documentation to roxygen2 (Wolfgang)
+* Support for polr() (Chris Lawrence)
 
 
 
