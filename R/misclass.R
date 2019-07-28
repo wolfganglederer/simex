@@ -13,7 +13,7 @@
 #'
 #' @author Wolfgang Lederer, \email{wolfgang.lederer@gmail.com}
 #'
-#' @seealso \code{\link[simex]{mcsimex}}, \code{\link[simex]{build.mc.matrix}}, \code{\link[simex]{diag.block}}
+#' @seealso \code{\link[simex]{mcsimex}}, \code{\link[simex]{mc.matrix}}, \code{\link[simex]{diag.block}}
 #'
 #' @examples
 #'
