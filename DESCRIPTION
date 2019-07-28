@@ -12,7 +12,7 @@ Suggests:
     survival
 Title: SIMEX- And MCSIMEX-Algorithm for Measurement Error Models
 Authors@R: c(
-    person("Wolfgang", "Lederer", email = "Wolfgang.Lederer@gmail.com", role = "cre"),
+    person("Wolfgang", "Lederer", email = "Wolfgang.Lederer@gmail.com", role = c("cre", "aut")),
     person("Heidi", "Seibold", email = "heidi.bold@gmail.com", role = "aut"),
     person("Helmut", "K\u00fcchenhoff", email = "Kuechenhoff@stat.uni-muenchen.de", role = "ctb"),
     person("Chris", "Lawrence", email = "", role = "ctb"),
