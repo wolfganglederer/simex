@@ -8,7 +8,8 @@ extract.covmat <- function(model) {
               , nls = covmat <- sum.model$cov.unscaled * sum.model$sigma^2
               , polr= covmat <- stats::vcov(model)
               , lme = covmat <- model$apVar
-              , nlme = covmat <- model$apVar)
+              , nlme = covmat <- model$apVar
+              , coxph = covmat <- survival:::vcov.coxph(model))
   return(covmat)
 }
 
