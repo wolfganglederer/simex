@@ -11,8 +11,12 @@ Suggests:
     MASS,
     survival
 Title: SIMEX- And MCSIMEX-Algorithm for Measurement Error Models
-Author: Wolfgang Lederer <Wolfgang.Lederer@gmail.com>, Heidi Seibold
-    <heidi.bold@gmail.com>, Helmut Küchenhoff <Kuechenhoff@stat.uni-muenchen.de>
+Authors@R: c(
+    person("Wolfgang", "Lederer", email = "Wolfgang.Lederer@gmail.com", role = "cre"),
+    person("Heidi", "Seibold", email = "heidi.bold@gmail.com", role = "aut"),
+    person("Helmut", "K\u00fcchenhoff", email = "Kuechenhoff@stat.uni-muenchen.de", role = "ctb"),
+    person("Chris", "Lawrence", email = "", role = "ctb"),
+    person("Rasmus Froberg", "Brøndum", email = "", role = "ctb"))
 Maintainer: Wolfgang Lederer <Wolfgang.Lederer@gmail.com>
 Description: Implementation of the SIMEX-Algorithm by Cook & Stefanski and
     MCSIMEX by Küchenhoff, Mwalili & Lesaffre.
@@ -22,5 +26,5 @@ License: GPL-3
 Encoding: UTF-8
 LazyLoad: yes
 ZipData: yes
-Packaged: Fri MAR 25 18:00:00 2016; wolfgang
+Packaged: Sun Jul 28 19:30:00 2018; wolfgang
 RoxygenNote: 6.1.1
