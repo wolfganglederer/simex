@@ -44,7 +44,7 @@ identical(x[, 2], x.mc[, 2]) # FALSE
 
 }
 \seealso{
-\code{\link[simex]{mcsimex}}, \code{\link[simex]{build.mc.matrix}}, \code{\link[simex]{diag.block}}
+\code{\link[simex]{mcsimex}}, \code{\link[simex]{mc.matrix}}, \code{\link[simex]{diag.block}}
 }
 \author{
 Wolfgang Lederer, \email{wolfgang.lederer@gmail.com}
