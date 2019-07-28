@@ -20,7 +20,7 @@ Authors@R: c(
 Maintainer: Wolfgang Lederer <Wolfgang.Lederer@gmail.com>
 Description: Implementation of the SIMEX-Algorithm by Cook & Stefanski and
     MCSIMEX by Küchenhoff, Mwalili & Lesaffre.
-URL: https://github.com/wolfganglederer/simex
+URL: http://wolfganglederer.github.io/simex/
 BugReports: https://github.com/wolfganglederer/simex/issues
 License: GPL-3
 Encoding: UTF-8
