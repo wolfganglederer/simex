@@ -9,27 +9,22 @@
 \alias{predict.simex}
 \alias{refit}
 \alias{refit.simex}
-\alias{plot.simex}
-\alias{predict.simex}
-\alias{print.simex}
-\alias{print.summary.simex}
-\alias{refit.simex}
-\alias{summary.simex}
 \title{Measurement error in models using SIMEX}
 \usage{
-simex(model, SIMEXvariable, measurement.error, lambda = c(0.5, 1, 1.5, 2),
-  B = 100, fitting.method = "quadratic",
+simex(model, SIMEXvariable, measurement.error, lambda = c(0.5, 1, 1.5,
+  2), B = 100, fitting.method = "quadratic",
   jackknife.estimation = "quadratic", asymptotic = TRUE)
 
-\method{plot}{simex}(x, xlab = expression((1 + lambda)), ylab = colnames(b[,
-  -1]), ask = FALSE, show = rep(TRUE, NCOL(b) - 1), ...)
+\method{plot}{simex}(x, xlab = expression((1 + lambda)),
+  ylab = colnames(b[, -1]), ask = FALSE, show = rep(TRUE, NCOL(b) -
+  1), ...)
 
 \method{predict}{simex}(object, newdata, ...)
 
 \method{print}{simex}(x, digits = max(3, getOption("digits") - 3), ...)
 
-\method{print}{summary.simex}(x, digits = max(3, getOption("digits") - 3),
-  ...)
+\method{print}{summary.simex}(x, digits = max(3, getOption("digits") -
+  3), ...)
 
 \method{refit}{simex}(object, fitting.method = "quadratic",
   jackknife.estimation = "quadratic", asymptotic = TRUE, ...)
