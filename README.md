@@ -18,6 +18,13 @@ devtools::install_github("wolfganglederer/simex")
 
 # simex NEWS:
 
+
+## Version 1.8:
+
+* `coxph` from survival is now supported (Rasmus Froberg Brøndum) & PR by Heidi
+* website added (Wolfgang)
+* smaller fixes (Wolfgang)
+
 ## Version 1.7:
 (by Wolfgang Lederer)
 

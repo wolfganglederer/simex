@@ -1,6 +1,13 @@
 simex NEWS:
 ===========
 
+Version 1.8:
+-----------
+
+* `coxph` from survival is now supported (Rasmus Froberg Brøndum)
+* website added (Wolfgang)
+
+
 Version 1.7:
 ------------
 (by Heidi Seibold & Wolfgang Lederer)
