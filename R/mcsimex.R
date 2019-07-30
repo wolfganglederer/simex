@@ -173,7 +173,7 @@ mcsimex <- function(model,
     stop("The option Hessian must be enabled in the naive model", call. = FALSE)
   if (class(model)[1] == "polr" && asymptotic)
     stop("Asymptotic estimation is not supported for polr models", call. = FALSE)
-  
+
   if (class(model)[1] == "coxph" && asymptotic)
       stop("Asymptotic estimation is not supported for coxph models", call. = FALSE)
   if (class(model)[1] == "coxph" && is.null(model$model))
@@ -397,7 +397,7 @@ mcsimex <- function(model,
 
 plot.mcsimex <- function(x,
                          xlab = expression((1 + lambda)),
-                         ylab = colnames(b[, -1]),
+                         ylab = colnames(b)[-1],
                          ask = FALSE,
                          show = rep(TRUE, NCOL(b) - 1),
                          ...) {
@@ -411,8 +411,8 @@ plot.mcsimex <- function(x,
   a <- seq(-1, max(b[, 1]), by = 0.01)
   d <- matrix(data = NA, nrow = length(a), ncol = NCOL(b) - 1)
   switch(x$fitting.method,
-         quad = d <- predict(x$extrapolation, newdata = data.frame(lambda = a)),
-         line = d <- predict(x$extrapolation, newdata = data.frame(lambda = a)),
+         quad = d <- matrix(predict(x$extrapolation, newdata = data.frame(lambda = a)), nrow = length(a), ncol = NCOL(b) - 1),
+         line = d <- matrix(predict(x$extrapolation, newdata = data.frame(lambda = a)), nrow = length(a), ncol = NCOL(b) - 1),
          nonl = for (i in 1:length(p.names)) d[, i] <- predict(x$extrapolation[[p.names[i]]],
                                                                newdata = data.frame(lambda = a)),
          log2 = for (i in 1:length(p.names)) d[, i] <- predict(x$extrapolation[[p.names[i]]], newdata = data.frame(lambda = a)) -
