@@ -17,8 +17,8 @@ Authors@R: c(
     person("Helmut", "K\u00fcchenhoff", email = "Kuechenhoff@stat.uni-muenchen.de", role = "ctb"),
     person("Chris", "Lawrence", email = "", role = "ctb"),
     person("Rasmus Froberg", "Brøndum", email = "", role = "ctb"))
-Description: Implementation of the SIMEX-Algorithm by Cook & Stefanski and
-    MCSIMEX by Küchenhoff, Mwalili & Lesaffre.
+Description: Implementation of the SIMEX-Algorithm by Cook & Stefanski (1994) <doi:10.1080/01621459.1994.10476871> and
+    MCSIMEX by Küchenhoff, Mwalili & Lesaffre (2006) <doi:10.1111/j.1541-0420.2005.00396.x>.
 URL: http://wolfganglederer.github.io/simex/
 BugReports: https://github.com/wolfganglederer/simex/issues
 License: GPL-3
