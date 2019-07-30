@@ -9,7 +9,7 @@ extract.covmat <- function(model) {
               , polr= covmat <- stats::vcov(model)
               , lme = covmat <- model$apVar
               , nlme = covmat <- model$apVar
-              , coxph = covmat <- survival:::vcov.coxph(model))
+              , coxph = covmat <-vcov(model))
   return(covmat)
 }
 
