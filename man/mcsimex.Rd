@@ -15,8 +15,8 @@ mcsimex(model, SIMEXvariable, mc.matrix, lambda = c(0.5, 1, 1.5, 2),
   jackknife.estimation = "quadratic", asymptotic = TRUE)
 
 \method{plot}{mcsimex}(x, xlab = expression((1 + lambda)),
-  ylab = colnames(b[, -1]), ask = FALSE, show = rep(TRUE, NCOL(b) -
-  1), ...)
+  ylab = colnames(b)[-1], ask = FALSE, show = rep(TRUE, NCOL(b) - 1),
+  ...)
 
 \method{predict}{mcsimex}(object, newdata, ...)
 
