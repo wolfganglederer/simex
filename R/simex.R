@@ -226,7 +226,7 @@ simex <-
         stop("Asymptotic estimation is not supported for coxph models", call. = FALSE)
     if (class(model)[1] == "coxph" && is.null(model$model))
         stop("The option model = TRUE must be enabled for coxph models", call. = FALSE)
-    if (class(model)[1] == "coxph" && grep("Surv\\(", names(model$model)[1]) == 1){
+    if (class(model)[1] == "coxph" && length(grep("Surv\\(", names(model$model)[1])) > 0){
         timeEventMatrix <- as.matrix(model$model[[1]])
         timeName <- sub("Surv\\(","",strsplit(names(model$model)[1], ", ")[[1]][1])
         eventName <- sub("\\)","",strsplit(names(model$model)[1], ", ")[[1]][2])
